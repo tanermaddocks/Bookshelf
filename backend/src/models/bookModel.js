@@ -6,7 +6,7 @@ const BookSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  authors: String,
+  author: String,
   genres: [String],
 }, {timestamps: true});
 
