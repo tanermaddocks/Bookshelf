@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
 // Define database URL
-const dbName = process.env.npm_package_name;
+const isTest = (process.env.NODE_ENV == "test" ? "-test" : "");
+const dbName = process.env.npm_package_name + isTest;
 const dbURL = process.env.DB_URL || "mongodb://localhost:27017/" + dbName;
 
 // Function to connect to database
