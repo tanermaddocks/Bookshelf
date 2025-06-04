@@ -1,5 +1,5 @@
-const Book = require("../models/bookModel.js");
 const express = require("express");
+const Book = require("../models/bookModel.js");
 
 // Define router
 const bookRouter = express.Router();
@@ -38,6 +38,37 @@ bookRouter.get(
 );
 
 // POST one
+bookRouter.post(
+  "/",
+  async (request, response) => {
+    try {
+
+      const { title, authors, genres } = request.body;
+
+      const newBook = await Book.create({
+        title,
+        authors,
+        genres,
+      });
+
+      response.status(201).json({
+        success: true,
+        data: newBook,
+      });
+
+    } catch (error) {
+
+      response.json({
+        success: false,
+        error: error.message,
+      });
+
+    }
+  }
+);
+
 // PATCH one
 // DELETE all
 // DELETE one
+
+module.exports = bookRouter

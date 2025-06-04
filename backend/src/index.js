@@ -8,9 +8,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
 // App routes
-
+const bookRouter = require("./controllers/bookController");
+app.use("/books", bookRouter)
 
 // Default route
 app.get("/", (request, response) =>{
