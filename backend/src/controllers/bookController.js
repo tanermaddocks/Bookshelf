@@ -8,34 +8,60 @@ const bookRouter = express.Router();
 bookRouter.get(
   "/all",
   async (request, response) => {
+    try {
 
-    // Retrieve all books
-    const allBooks = await Book.find();
+      // Retrieve all books
+      const allBooks = await Book.find();
 
-    // Return all books
-    response.json({
-      success: true,
-      count: allBooks.length,
-      data: allBooks,
-    });
+      // Return all books
+      response.json({
+        success: true,
+        operation: "GET",
+        count: allBooks.length,
+        data: allBooks,
+      });
 
+    } catch (error) {
+
+      response.status(400).json({
+        success: false,
+        error: error.message,
+      });
+
+    }
   }
 );
+
 
 // GET one
 bookRouter.get(
   "/:bookId",
   async (request, response) => {
 
-    const oneBook = await Book.findById(request.params.bookId);
+    try {
 
-    response.json({
-      success: true,
-      data: oneBook,
-    });
+      const oneBook = await Book.findById(
+        request.params.bookId,
+      );
+
+      response.json({
+        success: true,
+        operation: "GET",
+        data: oneBook,
+      });
+
+    } catch (error) {
+
+      response.status(400).json({
+        success: false,
+        error: error.message,
+      });
+
+    }
 
   }
 );
+
 
 // POST one
 bookRouter.post(
@@ -53,6 +79,7 @@ bookRouter.post(
 
       response.status(201).json({
         success: true,
+        operation: "POST",
         data: newBook,
       });
 
@@ -67,8 +94,64 @@ bookRouter.post(
   }
 );
 
+
 // PATCH one
-// DELETE all
+bookRouter.patch(
+  "/:bookId",
+  async (request, response) => {
+    try {
+
+      const updatedBook = await Book.findByIdAndUpdate(
+        request.params.bookId,
+        request.body,
+        { new: true }
+      );
+
+      response.status(200).json({
+        success: true,
+        operation: "PATCH",
+        data: updatedBook,
+      });
+    } catch (error) {
+
+      response.status(400).json({
+        success: false,
+        error: error.message,
+      });
+
+    }
+
+  }
+);
+
+
 // DELETE one
+bookRouter.delete(
+  "/:bookId",
+  async (request, response) => {
+
+    try {
+
+      const deletedBook = await Book.findByIdAndDelete(
+        request.params.bookId,
+      );
+
+      response.status(200).json({
+        success: true,
+        operation: "DELETE",
+        data: deletedBook,
+      });
+
+    } catch (error) {
+
+      response.status(400).json({
+        success: false,
+        error: error.message,
+      });
+
+    }
+  }
+);
+
 
 module.exports = bookRouter
