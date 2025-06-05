@@ -10,28 +10,48 @@ const books = response.data;
     <th id="author">Author</th>
     <th id="genres">Genres</th>
   </tr>
-  {
-    books.map((book: any) => (
-      <tr class="entry">
-        <td id="title">{book.title}</td>
-        <td id="author">{book.author}</td>
-        <td id="genres">
-          {book.genres.map((genre: any, index: number) => (
-            <span>
-              {genre + (!(index >= book.genres.length - 1) ? ", " : "")}
-            </span>
-          ))}
-        </td>
-      </tr>
-    ))
-  }
+  <form action="">
+    {
+      books.map((book: any, index: number) => (
+        <tr class={"entry-" + (index + 1)} id={book._id}>
+          <td>
+            <>
+              <input type="radio" name="book-select" />
+              <span>{book.title}</span>
+            </>
+          </td>
+          <td>{book.author}</td>
+          <td>
+            {book.genres.map((genre: any, index: number) => (
+              <span>
+                {genre + (!(index >= book.genres.length - 1) ? ", " : "")}
+              </span>
+            ))}
+          </td>
+        </tr>
+      ))
+    }
+  </form>
+  <tr>
+    <form action="">
+      <td class="new-book">
+        <input class="new-book" type="text" placeholder="New Book" />
+      </td>
+      <td class="new-book">
+        <input class="new-book" type="text" placeholder="Author" />
+      </td>
+      <td class="new-book">
+        <input class="new-book" type="text" placeholder="eg. Horror" />
+      </td>
+    </form>
+  </tr>
 </table>
 
 <style>
   table {
     background-color: black;
-    max-width: 600px;
-    min-width: 80vw;
+    min-width: 60vw;
+    max-width: 90vw;
   }
   th {
     background-color: grey;
@@ -39,8 +59,23 @@ const books = response.data;
   }
   tr,
   td {
-    padding: 4px 16px 4px 16px;
+    padding: 4px 16px 4px 8px;
     background-color: lightgrey;
+  }
+  td.new-book {
+    padding: 0;
+  }
+  td input.new-book {
+    all: unset;
+
+    width: 85%;
+    min-height: 22px;
+    max-height: 36px;
+
+    padding: 4px 0 4px 16px;
+
+    font-size: 16px;
+    font-style: italic;
   }
   #title {
     width: 40%;
