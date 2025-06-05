@@ -69,11 +69,11 @@ bookRouter.post(
   async (request, response) => {
     try {
 
-      const { title, authors, genres } = request.body;
+      const { title, author, genres } = request.body;
 
       const newBook = await Book.create({
         title,
-        authors,
+        author,
         genres,
       });
 
@@ -85,7 +85,7 @@ bookRouter.post(
 
     } catch (error) {
 
-      response.json({
+      response.status(400).json({
         success: false,
         error: error.message,
       });

@@ -20,6 +20,7 @@ app.get("/", (request, response) =>{
 // Database health check
 app.get("/dbHealth", (request, response) => {
 	response.json({
+		status: "OK",
 		name: mongoose.connection.name, 
 		models: mongoose.connection.modelNames(),
 		address: mongoose.connection.host, 
