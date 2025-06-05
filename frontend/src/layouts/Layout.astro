@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>BookShelf</title>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+
+<style>
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+
+		background-color: darkgray;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+	}
+
+  @media (min-width: 786px) {
+		body {
+			font-size: x-large;
+		}
+	@media (min-width: 1200px) {
+		body {
+			font-size: larger;
+}
+</style>
