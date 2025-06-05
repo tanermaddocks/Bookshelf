@@ -1,21 +1,7 @@
 ---
-const books = [
-  {
-    title: "The Hobbit",
-    author: "J.R.R Tolkien",
-    genres: ["Fantasy", "Adventure"],
-  },
-  {
-    title: "Fourth Wing",
-    author: "Rebecca Yarros",
-    genres: ["Fantasy", "Romance"],
-  },
-  {
-    title: "A Series of Unfortunate Events",
-    author: "Lemony Snicket",
-    genres: ["Horror", "Comedy", "Sci-Fi"],
-  },
-];0
+const request = await fetch(import.meta.env.API_URL + "/books/all");
+const response = await request.json();
+const books = response.data;
 ---
 
 <table>
@@ -24,30 +10,74 @@ const books = [
     <th id="author">Author</th>
     <th id="genres">Genres</th>
   </tr>
-  {
-    books.map((book) => (
-      <tr class="entry">
-        <td id="title">{book.title}</td>
-        <td id="author">{book.author}</td>
-        <td id="genres">
-          {book.genres.map((genre, index) => (
-            <span>
-              {genre + (!(index >= book.genres.length - 1) ? ", " : "")}
-            </span>
-          ))}
-        </td>
-      </tr>
-    ))
-  }
+  <form action="">
+    {
+      books.map((book: any, index: number) => (
+        <tr class={"entry-" + (index + 1)} id={book._id}>
+          <td>
+            <>
+              <input type="radio" name="book-select" />
+              <span>{book.title}</span>
+            </>
+          </td>
+          <td>{book.author}</td>
+          <td>
+            {book.genres.map((genre: any, index: number) => (
+              <span>
+                {genre + (!(index >= book.genres.length - 1) ? ", " : "")}
+              </span>
+            ))}
+          </td>
+        </tr>
+      ))
+    }
+  </form>
+  <tr>
+    <form action="">
+      <td class="new-book">
+        <input class="new-book" type="text" placeholder="New Book" />
+      </td>
+      <td class="new-book">
+        <input class="new-book" type="text" placeholder="Author" />
+      </td>
+      <td class="new-book">
+        <input class="new-book" type="text" placeholder="eg. Horror" />
+      </td>
+    </form>
+  </tr>
 </table>
 
 <style>
   table {
-    background-color:black;
+    background-color: black;
+    min-width: 60vw;
+    max-width: 90vw;
   }
-  tr, td {
+  th {
+    background-color: grey;
+    color: whitesmoke;
+  }
+  tr,
+  td {
+    padding: 4px 16px 4px 8px;
     background-color: lightgrey;
-    padding: 4px 16px 4px 16px;
   }
+  td.new-book {
+    padding: 0;
+  }
+  td input.new-book {
+    all: unset;
 
+    width: 85%;
+    min-height: 22px;
+    max-height: 36px;
+
+    padding: 4px 0 4px 16px;
+
+    font-size: 16px;
+    font-style: italic;
+  }
+  #title {
+    width: 40%;
+  }
 </style>

@@ -1,0 +1,27 @@
+[
+  {
+    "title": "The Hobbit",
+    "author": "J.R.R Tolkien",
+    "genres": [
+      "Fantasy",
+      "Adventure"
+    ]
+  },
+  {
+    "title": "Fourth Wing",
+    "author": "Rebecca Yarros",
+    "genres": [
+      "Fantasy",
+      "Romance"
+    ]
+  },
+  {
+    "title": "A Series of Unfortunate Events",
+    "author": "Lemony Snicket",
+    "genres": [
+      "Horror",
+      "Comedy",
+      "Sci-Fi"
+    ]
+  }
+]
