@@ -1,0 +1,44 @@
+---
+
+---
+
+<section class="menu">
+  <h2>What would you like to do?</h2>
+  <div class="menu-buttons">
+    <button id="find">FIND</button>
+    <button id="add">ADD</button>
+    <button id="edit">EDIT</button>
+    <button id="remove">REMOVE</button>
+  </div>
+</section>
+
+<style>
+  .menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .menu-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 90%;
+    gap: 4px;
+  }
+  .menu-buttons button {
+    padding: 12px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  button#find {
+    grid-area: 1 / 1 / span 1 / span 2;
+  }
+  button#add {
+    grid-area: 2 / 1 / span 1 / span 2;
+  }
+  button#edit {
+    grid-area: 3 / 1;
+  }
+  button#remove {
+    grid-column: 3 / 2;
+  }
+</style>
