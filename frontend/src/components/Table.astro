@@ -1,22 +1,28 @@
 ---
-const request = await fetch(import.meta.env.API_URL + "/books/all");
+const request = await fetch(import.meta.env.PUBLIC_API_URL + "/books/all");
 const response = await request.json();
 const books = response.data;
 ---
 
 <table>
   <tr>
-    <th id="title">Title</th>
-    <th id="author">Author</th>
-    <th id="genres">Genres</th>
+    <th class="title">Title</th>
+    <th class="author">Author</th>
+    <th class="genres">Genres</th>
   </tr>
-  <form action="">
+  <form>
     {
       books.map((book: any, index: number) => (
-        <tr class={"entry-" + (index + 1)} id={book._id}>
+        <tr class={"entry-" + (index + 1)}>
           <td>
             <>
-              <input type="radio" name="book-select" />
+              <input
+                type="radio"
+                name="book-select"
+                value={book.title}
+                id={book._id}
+                onclick="console.log(value + ' id: ' + id)"
+              />
               <span>{book.title}</span>
             </>
           </td>
@@ -35,13 +41,28 @@ const books = response.data;
   <tr>
     <form action="">
       <td class="new-book">
-        <input class="new-book" type="text" placeholder="New Book" />
+        <input
+          class="new-book"
+          id="title"
+          type="text"
+          placeholder="New book title"
+        />
       </td>
       <td class="new-book">
-        <input class="new-book" type="text" placeholder="Author" />
+        <input
+          class="new-book"
+          id="author"
+          type="text"
+          placeholder="eg. Shakespeare"
+        />
       </td>
       <td class="new-book">
-        <input class="new-book" type="text" placeholder="eg. Horror" />
+        <input
+          class="new-book"
+          id="genres"
+          type="text"
+          placeholder="eg. Horror, Romance"
+        />
       </td>
     </form>
   </tr>
@@ -77,7 +98,7 @@ const books = response.data;
     font-size: 16px;
     font-style: italic;
   }
-  #title {
+  .title {
     width: 40%;
   }
 </style>

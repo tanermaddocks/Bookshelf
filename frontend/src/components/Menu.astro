@@ -2,15 +2,73 @@
 
 ---
 
+<script>
+  let request = async (method: string) => {
+    const baseUrl = import.meta.env.PUBLIC_API_URL + "/books";
+    const bookId = (
+      document.querySelector(
+        "input[name=book-select]:checked",
+      ) as HTMLInputElement
+    )?.id;
+
+    let params: any;
+    if (method == "POST") {
+      params = {
+        targetUrl: baseUrl,
+        body: JSON.stringify({
+          title: (document.getElementById("title") as HTMLInputElement).value,
+          author: (document.getElementById("author") as HTMLInputElement).value,
+          genres: (
+            document.getElementById("genres") as HTMLInputElement
+          ).value.split(", "),
+        }),
+      };
+    } else if (method == "DELETE") {
+      if (!bookId) {
+        return alert("Select a book to remove it!");
+      }
+      params = {
+        targetUrl: baseUrl + "/" + bookId,
+        body: null,
+      };
+    }
+    const { targetUrl, body } = params;
+
+    console.log(method, targetUrl, body);
+    let response = await fetch(targetUrl, {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+    });
+
+    let apiResponse = await response.json();
+    console.log(apiResponse);
+
+    location.reload();
+  };
+
+  const POST = document.querySelector("button#add")!;
+  POST.addEventListener("click", () => {
+    request("POST");
+  });
+
+  const DELETE = document.querySelector("button#remove")!;
+  DELETE.addEventListener("click", () => {
+    request("DELETE");
+  });
+</script>
+
 <section class="menu">
   <img class="graphic" src="./src/assets/graphic.svg" alt="bookshelf graphic" />
   <menu>
     <h2>What would you like to do?</h2>
     <div class="menu-buttons">
       <!-- <button id="find">FIND</button> -->
-      <button id="add">ADD</button>
-      <button id="edit">EDIT</button>
-      <button id="remove">REMOVE</button>
+      <button type="submit" id="add"> ADD </button>
+      <!-- <button id="edit">EDIT</button> -->
+      <button type="submit" id="remove"> REMOVE </button>
     </div>
   </menu>
 </section>
@@ -58,10 +116,10 @@
   button#add {
     grid-area: 2 / 1 / span 1 / span 2;
   }
-  button#edit {
+  /* button#edit {
     grid-area: 3 / 1;
-  }
+  } */
   button#remove {
-    grid-area: 3 / 2;
+    grid-area: 3 / 1 / span 1 / span 2;
   }
 </style>
