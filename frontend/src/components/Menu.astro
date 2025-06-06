@@ -4,16 +4,31 @@
 
 <script>
   let request = async (method: string) => {
-    let bookId = (
+    const baseUrl = import.meta.env.PUBLIC_API_URL + "/books";
+    const bookId = (
       document.querySelector(
         "input[name=book-select]:checked",
       ) as HTMLInputElement
-    ).id;
+    )?.id;
 
-    let targetUrl = import.meta.env.PUBLIC_API_URL + "/books/" + bookId;
+    let params: any;
+    if (method == "POST") {
+      params = {
+        targetUrl: baseUrl,
+        body: JSON.stringify({
+          title: (document.getElementById("title") as HTMLInputElement).value,
+          author: (document.getElementById("author") as HTMLInputElement).value,
+        }),
+      };
+    } else if (method == "DELETE") {
+      params = {
+        targetUrl: baseUrl + "/" + bookId,
+        body: null,
+      };
+    }
+    const { targetUrl, body } = params;
 
-    let body = null;
-
+    console.log(method, targetUrl, body);
     let response = await fetch(targetUrl, {
       method: method,
       headers: {
@@ -22,8 +37,16 @@
       body: body,
     });
 
-    location.reload()
+    let apiResponse = await response.json()
+    console.log(apiResponse);
+
+    location.reload();
   };
+
+  const POST = document.querySelector("button#add")!;
+  POST.addEventListener("click", () => {
+    request("POST");
+  });
 
   const DELETE = document.querySelector("button#remove")!;
   DELETE.addEventListener("click", () => {

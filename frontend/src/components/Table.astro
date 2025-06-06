@@ -6,9 +6,9 @@ const books = response.data;
 
 <table>
   <tr>
-    <th id="title">Title</th>
-    <th id="author">Author</th>
-    <th id="genres">Genres</th>
+    <th class="title">Title</th>
+    <th class="author">Author</th>
+    <th class="genres">Genres</th>
   </tr>
   <form>
     {
@@ -41,13 +41,28 @@ const books = response.data;
   <tr>
     <form action="">
       <td class="new-book">
-        <input class="new-book" type="text" placeholder="New Book" />
+        <input
+          class="new-book"
+          id="title"
+          type="text"
+          placeholder="New book title"
+        />
       </td>
       <td class="new-book">
-        <input class="new-book" type="text" placeholder="Author" />
+        <input
+          class="new-book"
+          id="author"
+          type="text"
+          placeholder="eg. Shakespeare"
+        />
       </td>
       <td class="new-book">
-        <input class="new-book" type="text" placeholder="eg. Horror" />
+        <input
+          class="new-book"
+          id="genres"
+          type="text"
+          placeholder="eg. Horror"
+        />
       </td>
     </form>
   </tr>
@@ -83,7 +98,7 @@ const books = response.data;
     font-size: 16px;
     font-style: italic;
   }
-  #title {
+  .title {
     width: 40%;
   }
 </style>
