@@ -1,5 +1,5 @@
 ---
-const request = await fetch(import.meta.env.API_URL + "/books/all");
+const request = await fetch(import.meta.env.PUBLIC_API_URL + "/books/all");
 const response = await request.json();
 const books = response.data;
 ---
@@ -10,13 +10,19 @@ const books = response.data;
     <th id="author">Author</th>
     <th id="genres">Genres</th>
   </tr>
-  <form action="">
+  <form>
     {
       books.map((book: any, index: number) => (
-        <tr class={"entry-" + (index + 1)} id={book._id}>
+        <tr class={"entry-" + (index + 1)}>
           <td>
             <>
-              <input type="radio" name="book-select" />
+              <input
+                type="radio"
+                name="book-select"
+                value={book.title}
+                id={book._id}
+                onclick="console.log(value + ' id: ' + id)"
+              />
               <span>{book.title}</span>
             </>
           </td>

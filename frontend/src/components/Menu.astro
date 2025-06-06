@@ -2,15 +2,44 @@
 
 ---
 
+<script>
+  let request = async (method: string) => {
+    let bookId = (
+      document.querySelector(
+        "input[name=book-select]:checked",
+      ) as HTMLInputElement
+    ).id;
+
+    let targetUrl = import.meta.env.PUBLIC_API_URL + "/books/" + bookId;
+
+    let body = null;
+
+    let response = await fetch(targetUrl, {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+    });
+
+    location.reload()
+  };
+
+  const DELETE = document.querySelector("button#remove")!;
+  DELETE.addEventListener("click", () => {
+    request("DELETE");
+  });
+</script>
+
 <section class="menu">
   <img class="graphic" src="./src/assets/graphic.svg" alt="bookshelf graphic" />
   <menu>
     <h2>What would you like to do?</h2>
     <div class="menu-buttons">
       <!-- <button id="find">FIND</button> -->
-      <button id="add">ADD</button>
-      <button id="edit">EDIT</button>
-      <button id="remove">REMOVE</button>
+      <button type="submit" id="add"> ADD </button>
+      <!-- <button id="edit">EDIT</button> -->
+      <button type="submit" id="remove"> REMOVE </button>
     </div>
   </menu>
 </section>
@@ -58,10 +87,10 @@
   button#add {
     grid-area: 2 / 1 / span 1 / span 2;
   }
-  button#edit {
+  /* button#edit {
     grid-area: 3 / 1;
-  }
+  } */
   button#remove {
-    grid-area: 3 / 2;
+    grid-area: 3 / 1 / span 1 / span 2;
   }
 </style>
