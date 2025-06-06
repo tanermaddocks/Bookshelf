@@ -18,9 +18,15 @@
         body: JSON.stringify({
           title: (document.getElementById("title") as HTMLInputElement).value,
           author: (document.getElementById("author") as HTMLInputElement).value,
+          genres: (
+            document.getElementById("genres") as HTMLInputElement
+          ).value.split(", "),
         }),
       };
     } else if (method == "DELETE") {
+      if (!bookId) {
+        return alert("Select a book to remove it!");
+      }
       params = {
         targetUrl: baseUrl + "/" + bookId,
         body: null,
@@ -37,7 +43,7 @@
       body: body,
     });
 
-    let apiResponse = await response.json()
+    let apiResponse = await response.json();
     console.log(apiResponse);
 
     location.reload();
