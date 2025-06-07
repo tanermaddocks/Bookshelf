@@ -24,4 +24,6 @@ jobs:
 
       - name: Run tests
         run: cd frontend/ && npm test
+        env: 
+          PUBLIC_API_URL: http://localhost:3000
         
