@@ -1,7 +1,9 @@
 import { afterAll, afterEach, beforeAll, expect, test, vi } from "vitest";
 import { server } from "../mocks/node";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
+// import { userEvent } from '@vitest/browser/context'
 import Table from "../src/components/Table.astro";
+// import Menu from "../src/components/Menu.astro";
 
 // Before testing, run mock server
 beforeAll(() => {
@@ -31,3 +33,15 @@ test("Table component retrieves all book objects", async () => {
   });
 });
 
+// test("Add button sends a request to add new book object", async () => {
+//   const container = await AstroContainer.create();
+//   const menuComponent = await container.renderToResponse(Menu);
+
+//   await userEvent.click(document.querySelector("button#add"));
+
+//   vi.waitFor(() => {
+//     expect(menuComponent).to
+//   })
+
+
+// })
