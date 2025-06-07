@@ -4,7 +4,7 @@ const apiURL = import.meta.env.PUBLIC_API_URL
 
 // Array of interceptors
 export const handlers = [
-  http.get(apiURL + "/books", () => {
+  http.get(apiURL + "/books/all", () => {
     return HttpResponse.json({
       success: true,
       method: "GET",
@@ -15,7 +15,7 @@ export const handlers = [
         },
         {
           title: "TestBook2",
-          author: "TestAuthor"
+          genres: ["TestGenre1", "TestGenre2"]
         },
       ]
     });
