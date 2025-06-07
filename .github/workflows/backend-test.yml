@@ -23,13 +23,10 @@ jobs:
         uses: actions/setup-node@v4.1.0
         with:
           node-version: 'latest'
-      
-      - name: Change directory to backend/
-        run: cd ././backend/
 
       - name: Install dependencies
-        run: npm install
+        run: cd backend/ && npm install
 
       - name: Run tests
-        run: npm test
+        run: cd backend/ && npm test
         
