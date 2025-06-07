@@ -19,6 +19,7 @@ RUN npm run build
 # Environment variables
 ENV NODE_ENV=production
 ENV PORT=3600
+ENV PUBLIC_API_URL="http://localhost:3200"
 
 # Expose port
 EXPOSE 3600
