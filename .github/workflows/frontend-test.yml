@@ -1,0 +1,27 @@
+name: Run Astro App tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+      
+      - name: Set up Node
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version: 'latest'
+
+      - name: Install dependencies
+        run: cd frontend/ && npm install
+
+      - name: Run tests
+        run: cd frontend/ && npm test
+        
