@@ -28,7 +28,7 @@ const books = response.data;
           </td>
           <td>{book.author}</td>
           <td>
-            {book.genres.map((genre: any, index: number) => (
+            {book.genres?.map((genre: any, index: number) => (
               <span>
                 {genre + (!(index >= book.genres.length - 1) ? ", " : "")}
               </span>
@@ -45,7 +45,7 @@ const books = response.data;
           class="new-book"
           id="title"
           type="text"
-          placeholder="New book title"
+          placeholder="New book title*"
         />
       </td>
       <td class="new-book">

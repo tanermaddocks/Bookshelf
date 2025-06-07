@@ -13,14 +13,21 @@
 
     let params: any;
     if (method == "POST") {
+      let title = (document.getElementById("title") as HTMLInputElement).value
+      let author = (document.getElementById("author") as HTMLInputElement).value
+      let genres = (
+            document.getElementById("genres") as HTMLInputElement
+          ).value.split(", ")
+
+      if (!title) {
+        return alert("Fields marked with '*' are required.")
+      }
       params = {
         targetUrl: baseUrl,
         body: JSON.stringify({
-          title: (document.getElementById("title") as HTMLInputElement).value,
-          author: (document.getElementById("author") as HTMLInputElement).value,
-          genres: (
-            document.getElementById("genres") as HTMLInputElement
-          ).value.split(", "),
+          title: title,
+          author: author,
+          genres: genres,
         }),
       };
     } else if (method == "DELETE") {
