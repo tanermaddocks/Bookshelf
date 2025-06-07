@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  backend-test:
     runs-on: ubuntu-latest
     services:
       mongo:
@@ -19,7 +19,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4.2.2
         with:
-          sparse-checkout: 'frontend/'
+          sparse-checkout: 'Bookshelf/frontend'
           sparse-checkout-cone-mode: false
       
       - name: Set up Node
