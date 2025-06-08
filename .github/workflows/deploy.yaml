@@ -35,10 +35,11 @@ jobs:
 
       - name: Tag both images for ECR
         run: |
-          docker tag bookshelf-astro-app:latest ${{ secrets.ECR_REPO_URI }}/app:latest && \
-          docker tag bookshelf-express-api:latest ${{ secrets.ECR_REPO_URI }}/api:latest
-
+          docker tag bookshelf-express-api:latest ${{ secrets.ECR_REPO_URI }}/backend:latest && \
+          docker tag bookshelf-astro-app:latest ${{ secrets.ECR_REPO_URI }}/frontend:latest
+          
       - name: Push both images to ECR
         run: |
-          docker push ${{ secrets.ECR_REPO_URI }}/app:latest && \
-          docker push ${{ secrets.ECR_REPO_URI }}/api:latest
+          docker push ${{ secrets.ECR_REPO_URI }}/backend:latest && \
+          docker push ${{ secrets.ECR_REPO_URI }}/frontend:latest
+          
