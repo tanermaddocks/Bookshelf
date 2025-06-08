@@ -14,7 +14,8 @@ RUN npm ci
 COPY . .
 
 #Environment Variables
-ENV PUBLIC_API_URL="http://16.176.199.82:3000/"
+ARG API_URL
+ENV PUBLIC_API_URL=$API_URL
 
 # Build app
 RUN npm run build
