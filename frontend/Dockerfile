@@ -13,6 +13,9 @@ RUN npm ci
 # Copy rest of frontend
 COPY . .
 
+#Environment Variables
+ENV PUBLIC_API_URL="http://16.176.199.82:3000/"
+
 # Build app
 RUN npm run build
 
