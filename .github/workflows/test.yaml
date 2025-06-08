@@ -1,4 +1,4 @@
-name: Run API tests
+name: Run Astro App tests
 
 on:
   push:
@@ -7,13 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  backend-test:
+  application-test:
     runs-on: ubuntu-latest
-    services:
-      mongo:
-        image: mongo
-        ports:
-          - 27017:27017
 
     steps:
       - name: Checkout code
@@ -24,9 +19,17 @@ jobs:
         with:
           node-version: 'latest'
 
-      - name: Install dependencies
+      - name: Install frontend dependencies
+        run: cd frontend/ && npm install
+
+      - name: Run frontend tests
+        run: cd frontend/ && npm test
+        env: 
+          PUBLIC_API_URL: http://localhost:3000
+
+      - name: Install backend dependencies
         run: cd backend/ && npm install
 
-      - name: Run tests
+      - name: Run backend tests
         run: cd backend/ && npm test
         

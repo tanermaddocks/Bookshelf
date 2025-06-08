@@ -5,7 +5,7 @@ FROM node:alpine
 WORKDIR /api
 
 # Copy backend package
-COPY package.json package-lock.json ./
+COPY package*.json ./
 
 # Install dependencies
 RUN npm ci
