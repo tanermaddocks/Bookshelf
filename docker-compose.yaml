@@ -1,0 +1,17 @@
+services:
+  mongo-server:
+    image: mongo
+
+  express-api:
+    build: ./backend
+    depends_on:
+      - mongo-server
+    ports:
+      - 3200:3200
+
+  astro-app:
+    build: ./frontend
+    depends_on:
+      - express-api
+    ports:
+      - 3600:3600

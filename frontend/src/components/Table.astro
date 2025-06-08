@@ -1,7 +1,13 @@
 ---
-const request = await fetch(import.meta.env.PUBLIC_API_URL + "/books/all");
-const response = await request.json();
-const books = response.data;
+let response: any;
+try {
+  const request = await fetch(import.meta.env.PUBLIC_API_URL + "/books/all");
+  response = await request.json();
+} catch (error) {
+  console.error("Something went wrong!");
+}
+
+const books = response?.data;
 ---
 
 <table>
@@ -12,7 +18,7 @@ const books = response.data;
   </tr>
   <form>
     {
-      books.map((book: any, index: number) => (
+      books?.map((book: any, index: number) => (
         <tr class={"entry-" + (index + 1)}>
           <td>
             <>

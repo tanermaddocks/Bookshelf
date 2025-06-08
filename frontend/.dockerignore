@@ -1,0 +1,5 @@
+.astro/
+mocks/
+node_modules/
+tests/
+.env.sample
