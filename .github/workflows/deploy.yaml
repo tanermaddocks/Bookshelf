@@ -30,14 +30,15 @@ jobs:
       - name: Build backend Docker image
         run: docker build -t bookshelf-express-api ./backend
 
-      - name: Tag backend image for ECR
-        run: docker tag bookshelf-express-api:latest ${{ secrets.ECR_REPO_URI }}:latest
-
       - name: Build frontend Docker image
         run: docker build -t bookshelf-astro-app ./frontend
 
-      - name: Tag frontend image for ECR
-        run: docker tag bookshelf-astro-app:latest ${{ secrets.ECR_REPO_URI }}:latest
+      - name: Tag both images for ECR
+        run: |
+          docker tag bookshelf-astro-app:latest ${{ secrets.ECR_REPO_URI }}:app:latest && \
+          docker tag bookshelf-express-api:latest ${{ secrets.ECR_REPO_URI }}:api:latest
 
       - name: Push both images to ECR
-        run: docker push ${{ secrets.ECR_REPO_URI }}:latest
+        run: |
+          docker push ${{ secrets.ECR_REPO_URI }}:app:latest && \
+          docker push ${{ secrets.ECR_REPO_URI }}:api:latest
