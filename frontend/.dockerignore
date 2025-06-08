@@ -2,5 +2,6 @@
 mocks/
 node_modules/
 tests/
-.env.sample
+.env*
 vitest.config.ts
+Dockerfile

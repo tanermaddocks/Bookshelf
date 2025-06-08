@@ -6,6 +6,11 @@ const PORT = process.env.PORT || 3000;
 
 // Run the server 
 app.listen(PORT, async () => {
-  await connectDB();
+  try {
+    await connectDB();
+  } catch (error) {
+    console.log("No database connected.")
+  }
+
   console.log("Bookshelf server is running on port: " + PORT);
 });
