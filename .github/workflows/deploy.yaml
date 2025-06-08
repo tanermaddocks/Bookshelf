@@ -10,11 +10,11 @@ jobs:
   build-and-push:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.2.2
-      
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4.2.1
         with:
@@ -39,7 +39,7 @@ jobs:
         run: |
           docker tag bookshelf-express-api:latest ${{ secrets.ECR_REPO_URI }}/backend:latest && \
           docker tag bookshelf-astro-app:latest ${{ secrets.ECR_REPO_URI }}/frontend:latest
-          
+
       - name: Push both images to ECR
         run: |
           docker push ${{ secrets.ECR_REPO_URI }}/backend:latest && \
@@ -48,13 +48,13 @@ jobs:
       - name: Deploy backend to ECS Fargate
         run: |
           aws ecs update-service \
-          --cluster bookshelf-cluster \
-          --service bookshelf-backend-service-trx8rr01 \
+          --cluster ${{ secrets.ECS_CLUSTER_NAME }} \
+          --service ${{ secrets.ECS_CLUSTER_SERVICE_NAME }}  \
           --force-new-deployment
-          
+
       - name: Deploy frontend to ECS Fargate
         run: |
           aws ecs update-service \
-          --cluster bookshelf-cluster \
-          --service bookshelf-frontend-service-8k8zn0vw \
+          --cluster ${{ secrets.ECS_CLUSTER_NAME }} \
+          --service ${{ secrets.ECS_CLUSTER_SERVICE_NAME }} \
           --force-new-deployment
