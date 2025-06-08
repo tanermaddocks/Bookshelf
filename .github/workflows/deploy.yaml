@@ -10,7 +10,10 @@ jobs:
   build-and-push:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
-    
+    env:
+      ECR_REPO: ${{ secrets.ECR_REPO_URI }}
+      REGION: ${{ secrets.AWS_REGION }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.2.2
@@ -20,28 +23,32 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: $REGION
 
       - name: Log in to ECR
         run: |
-          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | \
-          docker login --username AWS --password-stdin ${{ secrets.ECR_REPO_URI }}
+          aws ecr get-login-password --region $REGION | \
+          docker login --username AWS --password-stdin ${ECR_REPO}
 
       - name: Build backend Docker image
-        run: docker build -t bookshelf-express-api ./backend
+        run: |
+          docker build \
+          -t bookshelf-express-api \
+          --build-arg DB_URL=${{ secrets.MONGO_DB_URL }} \
+          ./backend
 
       - name: Build frontend Docker image
         run: docker build -t bookshelf-astro-app ./frontend
 
       - name: Tag both images for ECR
         run: |
-          docker tag bookshelf-express-api:latest ${{ secrets.ECR_REPO_URI }}/backend:latest && \
-          docker tag bookshelf-astro-app:latest ${{ secrets.ECR_REPO_URI }}/frontend:latest
+          docker tag bookshelf-express-api:latest ${ECR_REPO}/backend:latest && \
+          docker tag bookshelf-astro-app:latest ${ECR_REPO}/frontend:latest
           
       - name: Push both images to ECR
         run: |
-          docker push ${{ secrets.ECR_REPO_URI }}/backend:latest && \
-          docker push ${{ secrets.ECR_REPO_URI }}/frontend:latest
+          docker push ${ECR_REPO}/backend:latest && \
+          docker push ${ECR_REPO}/frontend:latest
 
       - name: Deploy to ECS Fargate
         run: |
