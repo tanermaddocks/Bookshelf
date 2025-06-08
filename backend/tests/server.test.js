@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const request = require("supertest");
 
-const app = require("../src");
+const app = require("../src/index");
 const connectDB = require("../src/utils/database");
 
 

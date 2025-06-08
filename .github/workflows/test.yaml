@@ -1,4 +1,4 @@
-name: Run Astro App tests
+name: Run tests
 
 on:
   push:
@@ -9,6 +9,11 @@ on:
 jobs:
   application-test:
     runs-on: ubuntu-latest
+    services:
+      mongo:
+          image: mongo
+          ports:
+            - 27017:27017
 
     steps:
       - name: Checkout code
