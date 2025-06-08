@@ -1,5 +1,5 @@
 ---
-
+import bookshelfGraphic from "../assets/graphic.svg";
 ---
 
 <script>
@@ -68,7 +68,7 @@
 </script>
 
 <section class="menu">
-  <img class="graphic" src="./src/assets/graphic.svg" alt="bookshelf graphic" />
+  <img src={bookshelfGraphic.src} alt="bookshelf graphic" fetchpriority="high" />
   <menu>
     <h2>What would you like to do?</h2>
     <div class="menu-buttons">
@@ -93,7 +93,7 @@
       flex-direction: row;
     }
   }
-  .graphic {
+  .menu img {
     max-width: 100vw;
     max-height: 25vh;
   }

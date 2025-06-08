@@ -2,7 +2,7 @@
 FROM node:alpine
 
 # Working directory
-WORKDIR /api
+WORKDIR /app
 
 # Copy backend package
 COPY package*.json ./
@@ -15,10 +15,10 @@ COPY . .
 
 # Environment variables
 ENV NODE_ENV=production
-ENV PORT=3200
+ENV PORT=3000
 
 # Expose port
-EXPOSE 3200
+EXPOSE 3000
 
 # Start server
 CMD ["npm", "run", "start"]

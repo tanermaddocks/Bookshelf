@@ -7,10 +7,12 @@ const dbURL = process.env.DB_URL || "mongodb://localhost:27017/" + dbName;
 
 // Function to connect to database
 async function connectDB () {
+  console.log("Attempting to connect to database: " + dbURL)
+
   try {
 
     await mongoose.connect(dbURL);
-    console.log("Connected to database: " + dbURL);
+    console.log("Connected to database!");
 
   } catch (error) {
 

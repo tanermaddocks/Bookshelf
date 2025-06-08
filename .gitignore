@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # bruno tester
 bruno
+
+# Development files
+dev-files

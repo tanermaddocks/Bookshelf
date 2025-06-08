@@ -24,7 +24,8 @@ app.get("/dbHealth", (request, response) => {
 		name: mongoose.connection.name, 
 		models: mongoose.connection.modelNames(),
 		address: mongoose.connection.host, 
-		readyState: mongoose.connection.readyState
+		readyState: mongoose.connection.readyState,
+		nodeEnv: process.env.NODE_ENV
 	});
 });
 

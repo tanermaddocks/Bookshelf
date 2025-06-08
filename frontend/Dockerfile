@@ -1,5 +1,5 @@
 # Base image
-FROM node:alpine
+FROM node:alpine AS node-builder
 
 # Working directory
 WORKDIR /app
@@ -21,4 +21,8 @@ ENV PORT=3600
 EXPOSE 3600
 
 # Build app
-CMD ["npm", "run", "build"]
+RUN npm run build
+
+# Run from Nginx
+FROM nginx:alpine
+COPY --from=node-builder /app/dist /usr/share/nginx/html

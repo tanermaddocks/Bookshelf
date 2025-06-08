@@ -3,3 +3,4 @@ mocks/
 node_modules/
 tests/
 .env.sample
+vitest.config.ts
