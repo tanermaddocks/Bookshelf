@@ -13,13 +13,6 @@ RUN npm ci
 # Copy rest of frontend
 COPY . .
 
-# Environment variables
-ENV NODE_ENV=production
-ENV PORT=3600
-
-# Expose port
-EXPOSE 3600
-
 # Build app
 RUN npm run build
 
