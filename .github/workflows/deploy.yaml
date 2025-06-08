@@ -29,11 +29,11 @@ jobs:
 
       - name: Build backend Docker image
         run: |
-          docker build --build-arg DB_URL=${{ secrets.MONGO_DB_URL }} -t bookshelf-express-api ./backend
+          docker build --build-arg DB_URL="${{ secrets.MONGO_DB_URL }}" -t bookshelf-express-api ./backend
 
       - name: Build frontend Docker image
         run: |
-          docker build --build-arg API_URL=${{ secrets.API_URL }} -t bookshelf-astro-app ./frontend
+          docker build --build-arg API_URL="${{ secrets.API_URL }}" -t bookshelf-astro-app ./frontend
 
       - name: Tag both images for ECR
         run: |
