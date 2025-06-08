@@ -11,8 +11,8 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     env:
-      ECR_REPO: ${{ secrets.ECR_REPO_URI }}
-      REGION: ${{ secrets.AWS_REGION }}
+      ECR_REPO_URI: ${{ secrets.ECR_REPO_URI }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
 
     steps:
       - name: Checkout code
@@ -20,14 +20,19 @@ jobs:
       
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4.2.1
+        env:
+          REGION: $REGION
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: $REGION
+          aws-region: ${REGION}
 
       - name: Log in to ECR
+        env:
+          REGION: $AWS_REGION
+          ECR_REPO: $ECR_REPO_URI
         run: |
-          aws ecr get-login-password --region $REGION | \
+          aws ecr get-login-password --region ${REGION} | \
           docker login --username AWS --password-stdin ${ECR_REPO}
 
       - name: Build backend Docker image
@@ -41,11 +46,15 @@ jobs:
         run: docker build -t bookshelf-astro-app ./frontend
 
       - name: Tag both images for ECR
+        env:
+          ECR_REPO: $ECR_REPO_URI
         run: |
           docker tag bookshelf-express-api:latest ${ECR_REPO}/backend:latest && \
           docker tag bookshelf-astro-app:latest ${ECR_REPO}/frontend:latest
           
       - name: Push both images to ECR
+        env:
+          ECR_REPO: $ECR_REPO_URI
         run: |
           docker push ${ECR_REPO}/backend:latest && \
           docker push ${ECR_REPO}/frontend:latest
