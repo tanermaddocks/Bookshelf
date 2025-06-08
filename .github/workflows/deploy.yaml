@@ -45,14 +45,14 @@ jobs:
           docker push ${{ secrets.ECR_REPO_URI }}/backend:latest && \
           docker push ${{ secrets.ECR_REPO_URI }}/frontend:latest
 
-      - name: Deploy to ECS Fargate
+      - name: Deploy backend to ECS Fargate
         run: |
           aws ecs update-service \
           --cluster bookshelf-cluster \
           --service bookshelf-backend-service-trx8rr01 \
           --force-new-deployment
           
-      - name: Deploy to ECS Fargate
+      - name: Deploy frontend to ECS Fargate
         run: |
           aws ecs update-service \
           --cluster bookshelf-cluster \
